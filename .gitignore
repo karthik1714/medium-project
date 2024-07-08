@@ -1,0 +1,31 @@
+# Node modules
+backend/node_modules/
+common/node_modules/
+
+# Environment variables
+backend/.env
+common/.env
+
+# Cloudflare Worker configurations
+backend/wrangler.toml
+common/wrangler.toml
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Dist folder
+backend/dist/
+common/dist/
+
+# Other sensitive files
+.DS_Store
