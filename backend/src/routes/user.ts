@@ -31,12 +31,13 @@ if(!success){
 try {
   const user = await prisma.user.create({
     data : {
+      name :body.name,
       email: body.email,
       password: body.password,
     }
   });
   const token = await sign({id : user.id}, c.env.JWT_SECRET)
-  return c.json({jwt : token})
+  return c.json({jwt : token ,username : user.name})
 } catch(e){
   c.status(403);
 	return c.json({ error: "error while signing up" });
@@ -70,7 +71,7 @@ if(!success){
 
     const token = await sign({id:user.id},c.env.JWT_SECRET);
     return c.json({jwt : token,
-      message:"User loged in"
+      message:"User loged in",usernmae :user.name
     })
 
   } catch (error) {
