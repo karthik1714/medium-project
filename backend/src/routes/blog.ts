@@ -1,4 +1,6 @@
 import { Hono } from 'hono'
+import { format } from 'date-fns';
+
 import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
 import { decode, jwt, sign, verify } from 'hono/jwt'
@@ -56,14 +58,17 @@ if(!success){
   return c.json({ error: "Wrong Inputs" });
 }else {
   try {
+    const currentDate = new Date()
     const blog= await prisma.post.create({
+  
       data:{
         title:body.title,
         content:body.content,
-        authorId : authorId
+        authorId : authorId,
+        publishedDate: currentDate,
       }
     })
-    return c.json({id:blog.id , message : " Created "})
+    return c.json({id:blog.id , message : " Blog Created ",publishedDate: format(currentDate, 'do MMM yyyy')})
     
   } catch (error) {
     c.status(403);
@@ -118,6 +123,7 @@ blogRouter.get('/bulk', async(c) => {
         content:true,
         title:true,
         id:true,
+        publishedDate: true,
         author:{  
           select:{
             name:true
@@ -150,6 +156,7 @@ blogRouter.get('/:id', async(c) => {
         id:true,
         title : true,
         content : true,
+        publishedDate: true,
         author :{
           select :{
             name : true

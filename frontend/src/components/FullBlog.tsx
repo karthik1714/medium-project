@@ -1,8 +1,12 @@
 import { Blog } from "../hooks"
 import  Appbar  from "./Appbar"
 import { Avatar } from "./BlogCard"
+import { format } from 'date-fns';
+
 
 export const FullBlog = ({ blog }: {blog: Blog}) => {
+  const parsedDate = new Date(blog.publishedDate);
+  const formattedDate = format(parsedDate, 'do MMMM yyyy');
     return <div>
         <Appbar />
         <div className="flex justify-center">
@@ -12,7 +16,7 @@ export const FullBlog = ({ blog }: {blog: Blog}) => {
                         {blog.title}
                     </div>
                     <div className="text-slate-500 pt-2">
-                        Post on 2nd December 2023
+                        Post on {formattedDate}
                     </div>
                     <div className="pt-4">
                         {blog.content}
