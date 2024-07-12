@@ -11,7 +11,7 @@ const BlogPage = () => {
   });
 
   if (loading || !blog) { // Handle the case where blog is null or undefined
-    return (
+    return (  
       <div>
         <Appbar /> 
         <div className="flex justify-center">
